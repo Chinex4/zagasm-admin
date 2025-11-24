@@ -9,6 +9,9 @@ import ContentModeration from "./pages/dashboard/ContentModeration";
 import ContentCategoryManagement from "./pages/dashboard/ContentCategoryManagement";
 import CommunicationNotificationPage from "./pages/dashboard/CommunicationNotificationPage";
 import MonetizationPage from "./pages/dashboard/MonetizationPage";
+import GeneralSettings from "./pages/dashboard/settings/General";
+import SecurityAndAccess from "./pages/dashboard/settings/SecurityAndAccess";
+import AuditLogs from "./pages/dashboard/settings/AuditLogs";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -31,6 +34,18 @@ function App() {
           <Route
             path="monetization"
             element={<MonetizationPage />}
+          />
+          <Route
+            path="settings/general"
+            element={<GeneralSettings />}
+          />
+          <Route
+            path="settings/security-access"
+            element={<SecurityAndAccess />}
+          />
+          <Route
+            path="settings/audit-logs"
+            element={<AuditLogs />}
           />
         </Route>
       </Routes>

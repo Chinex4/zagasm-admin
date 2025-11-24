@@ -81,7 +81,7 @@ const topAdvertisers = [
 
 function MonetizationBottomSection() {
   return (
-    <section className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-[2.2fr,1.6fr,2fr] gap-6">
+    <section className="mt-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-[2.2fr,1.6fr,2fr] gap-6">
       {/* Recent Campaigns - detailed */}
       <div className="bg-white rounded-3xl border border-neutral-100 shadow-sm px-4 md:px-6 pt-5 pb-4">
         <h3 className="text-lg font-semibold text-neutral-900 mb-4">

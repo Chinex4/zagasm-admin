@@ -1,5 +1,5 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 import {
   LayoutDashboard,
   Users,
@@ -8,9 +8,10 @@ import {
   BadgePercent,
   Mail,
   Settings,
+  ChevronDown,
 } from "lucide-react";
 
-const links = [
+const mainLinks = [
   { to: "/", label: "Dashboard", icon: LayoutDashboard },
   { to: "/user-management", label: "User Management", icon: Users },
   {
@@ -33,14 +34,28 @@ const links = [
     label: "Communication & Notification",
     icon: Mail,
   },
+];
+
+const settingsSubLinks = [
   {
-    to: "/settings",
-    label: "Settings & Security",
-    icon: Settings,
+    to: "/settings/general",
+    label: "General Settings",
+  },
+  {
+    to: "/settings/security-access",
+    label: "Security & Access",
+  },
+  {
+    to: "/settings/audit-logs",
+    label: "Audit Logs",
   },
 ];
 
 function Sidebar() {
+  const location = useLocation();
+  const isSettingsActive = location.pathname.startsWith("/settings");
+  const [settingsOpen, setSettingsOpen] = useState(isSettingsActive);
+
   return (
     <aside className="w-64 bg-white border-r border-neutral-200 hidden md:flex flex-col">
       <div className="h-16 flex items-center px-4 border-b border-neutral-100 mt-2">
@@ -49,7 +64,7 @@ function Sidebar() {
       </div>
 
       <nav className="flex-1 px-3 py-8 space-y-4 mt-3">
-        {links.map(({ to, label, icon: Icon }) => (
+        {mainLinks.map(({ to, label, icon: Icon }) => (
           <NavLink
             key={to}
             to={to}
@@ -68,6 +83,53 @@ function Sidebar() {
             <span>{label}</span>
           </NavLink>
         ))}
+
+        {/* Settings & Security dropdown */}
+        <div className="space-y-1">
+          <button
+            type="button"
+            onClick={() => setSettingsOpen((prev) => !prev)}
+            className={[
+              "w-full flex items-center justify-between rounded-2xl px-4 py-2.5 font-medium",
+              "text-neutral-500 hover:bg-primary/5 transition-all duration-200 hover:text-primary",
+              isSettingsActive
+                ? "bg-primary text-white shadow-[0_8px_16px_rgba(143,7,231,0.25)]"
+                : "",
+            ].join(" ")}
+          >
+            <span className="flex items-center gap-3">
+              <Settings size={20} />
+              <span>Settings &amp; Security</span>
+            </span>
+            <ChevronDown
+              size={18}
+              className={`transition-transform ${
+                settingsOpen ? "rotate-180" : "rotate-0"
+              }`}
+            />
+          </button>
+
+          {settingsOpen && (
+            <div className="mt-1 space-y-1 pl-4">
+              {settingsSubLinks.map((link) => (
+                <NavLink
+                  key={link.to}
+                  to={link.to}
+                  className={({ isActive }) =>
+                    [
+                      "flex items-center rounded-xl px-4 py-2 text-sm",
+                      "text-neutral-500 hover:bg-primary/5 hover:text-primary transition-all duration-200",
+                      isActive ? "text-primary font-semibold bg-primary/5" : "",
+                    ].join(" ")
+                  }
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-neutral-300 mr-2" />
+                  <span>{link.label}</span>
+                </NavLink>
+              ))}
+            </div>
+          )}
+        </div>
       </nav>
     </aside>
   );
