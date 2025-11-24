@@ -10,6 +10,7 @@ function ContentOverviewCard({
   todayColorClass,
   weekText,
   weekColorClass,
+  iconColorClass, // NEW (optional)
 }) {
   const showFooter = todayText || weekText;
 
@@ -29,7 +30,11 @@ function ContentOverviewCard({
         <div
           className={`h-10 w-10 rounded-xl flex items-center justify-center ${badgeBgClass}`}
         >
-          <Icon className="h-5 w-5 text-neutral-700" />
+          <Icon
+            className={`h-5 w-5 ${
+              iconColorClass ? iconColorClass : "text-neutral-700"
+            }`}
+          />
         </div>
       </div>
 

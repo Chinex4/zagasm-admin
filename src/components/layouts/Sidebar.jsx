@@ -29,7 +29,7 @@ const links = [
     icon: BadgePercent,
   },
   {
-    to: "/communication",
+    to: "/communication-notification",
     label: "Communication & Notification",
     icon: Mail,
   },
